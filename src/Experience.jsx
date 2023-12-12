@@ -1,10 +1,16 @@
 import { OrbitControls } from "@react-three/drei";
 import Lights from "./Lights.jsx";
+import { Perf } from "r3f-perf";
+import Camera from "./Camera.jsx";
 
 export default function Experience() {
   return (
     <>
+      <Perf position="top-left" />
+
       <OrbitControls makeDefault />
+
+      <Camera />
 
       <Lights />
 
