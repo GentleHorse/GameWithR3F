@@ -3,13 +3,16 @@ import { materials } from "./materials.js";
 import { useRapier, RigidBody } from "@react-three/rapier";
 import { useFrame } from "@react-three/fiber";
 import { useKeyboardControls } from "@react-three/drei";
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
+import * as THREE from "three";
 
 export default function Player(props) {
   const body = useRef();
   const [subscribeKeys, getKeys] = useKeyboardControls();
   const { rapier, world } = useRapier();
   
+  const [smoothedCameraPosition] = useState(() => new THREE.Vector3());
+  const [smoothedCameraTarget] = useState(() => new THREE.Vector3());
 
   // Make a ball jump ===================================
   const jump = () => {
@@ -42,8 +45,8 @@ export default function Player(props) {
     );
 
     return () => {
-        unsubscribeJump();
-    }
+      unsubscribeJump();
+    };
   }, []);
 
   // Make a boll roll =====================================
@@ -80,6 +83,26 @@ export default function Player(props) {
     body.current.applyTorqueImpulse(torque);
   });
 
+  // Camera ================================================
+  useFrame((state, delta) => {
+    const bodyPosition = body.current.translation();
+
+    const cameraPosition = new THREE.Vector3();
+    cameraPosition.copy(bodyPosition);
+    cameraPosition.z += 2.25;
+    cameraPosition.y += 0.65;
+
+    const cameraTarget = new THREE.Vector3();
+    cameraTarget.copy(bodyPosition);
+    cameraTarget.y += 0.25;
+
+    smoothedCameraPosition.lerp(cameraPosition, 5 * delta);
+    smoothedCameraTarget.lerp(cameraTarget, 5 * delta)
+
+    state.camera.position.copy(smoothedCameraPosition);
+    state.camera.lookAt(smoothedCameraTarget);
+  });
+
   // Render ================================================
   return (
     <RigidBody
@@ -87,7 +110,7 @@ export default function Player(props) {
       ref={body}
       canSleep={false}
       colliders="ball"
-      restitution={0.2}  
+      restitution={0.2}
       friction={1}
       // To more realistic ball's movements
       // Allow forces diminishing gradually
