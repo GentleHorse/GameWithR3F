@@ -1,52 +1,59 @@
 import * as THREE from "three";
-import { RigidBody } from "@react-three/rapier";
-import { useState, useRef } from "react";
-import { useFrame } from "@react-three/fiber";
-import BlockStart from "./Blocks/BlockStart.jsx";
-import BlockEnd from "./Blocks/BlockEnd.jsx";
-import BlockSpinner from "./Blocks/BlockSpinner.jsx";
-import BlockLimbo from "./Blocks/BlockLimbo.jsx";
-import BlockAxe from "./Blocks/BlockAxe.jsx";
+import { useMemo } from "react";
+import { geometries } from "./geometries.js";
+import { materials } from "./materials.js";
+import { useControls } from "leva";
+import BlockStart from "./blocks/BlockStart.jsx";
+import BlockEnd from "./blocks/BlockEnd.jsx";
+import BlockSpinner from "./blocks/BlockSpinner.jsx";
+import BlockLimbo from "./blocks/BlockLimbo.jsx";
+import BlockAxe from "./blocks/BlockAxe.jsx";
+import Bounds from "./walls/Bounds.jsx";
 
-const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
 
-const floor01Material = new THREE.MeshStandardMaterial({ color: "limegreen" });
-const floor02Material = new THREE.MeshStandardMaterial({
-  color: "greenyellow",
-});
-const obstacleMaterial = new THREE.MeshStandardMaterial({ color: "orangered" });
-const wallMaterial = new THREE.MeshStandardMaterial({ color: "slategrey" });
+export default function Level({
+  count = 5,
+  types = [BlockSpinner, BlockAxe, BlockLimbo],
+}) {
+  const blocks = useMemo(() => {
+    const blocks = [];
 
-export default function Level() {
+    for (let i = 0; i < count; i++) {
+      const type = types[Math.floor(Math.random() * types.length)];
+      blocks.push(type);
+    }
+
+    return blocks;
+  }, [count, types]);
+
   return (
     <>
       <BlockStart
-        geometry={boxGeometry}
-        material={floor01Material}
-        position={[0, 0, 16]}
-      />
-      <BlockSpinner
-        position={[0, 0, 12]}
-        geometry={boxGeometry}
-        material={floor02Material}
-        obstacleMaterial={obstacleMaterial}
-      />
-      <BlockLimbo
-        position={[0, 0, 8]}
-        geometry={boxGeometry}
-        material={floor02Material}
-        obstacleMaterial={obstacleMaterial}
-      />
-      <BlockAxe
-        position={[0, 0, 4]}
-        geometry={boxGeometry}
-        material={floor02Material}
-        obstacleMaterial={obstacleMaterial}
-      />
-      <BlockEnd
+        geometry={geometries.cube}
+        material={materials.floor.floor01}
         position={[0, 0, 0]}
-        geometry={boxGeometry}
-        material={floor01Material}
+      />
+
+      {blocks.map((Block, index) => (
+        <Block
+          key={index}
+          position={[0, 0, -(index + 1) * 4]}
+          geometry={geometries.cube}
+          material={materials.floor.floor02}
+          obstacleMaterial={materials.obstacle.obstacle01}
+        />
+      ))}
+
+      <BlockEnd
+        position={[0, 0, -(count + 1) * 4]}
+        geometry={geometries.cube}
+        material={materials.floor.floor01}
+      />
+
+      <Bounds
+        length={count + 2}
+        geometry={geometries.cube}
+        material={materials.wall.wall01}
       />
     </>
   );
