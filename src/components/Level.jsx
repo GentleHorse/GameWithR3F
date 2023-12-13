@@ -1,8 +1,6 @@
-import * as THREE from "three";
 import { useMemo } from "react";
 import { geometries } from "./geometries.js";
 import { materials } from "./materials.js";
-import { useControls } from "leva";
 import BlockStart from "./blocks/BlockStart.jsx";
 import BlockEnd from "./blocks/BlockEnd.jsx";
 import BlockSpinner from "./blocks/BlockSpinner.jsx";

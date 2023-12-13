@@ -18,62 +18,104 @@ const stoneFloorRoughnessTexture = loader.load(
 );
 
 // Water
-const waterFloorAmbientOcclusionTexture = loader.load(
+const waterAmbientOcclusionTexture = loader.load(
   "./textures/water/ambientOcclusion.jpg"
 );
-const waterFloorColorTexture = loader.load(
+const waterColorTexture = loader.load(
   "./textures/water/basecolor.jpg"
 );
 
-const waterFloorNormalTexture = loader.load(
+const waterNormalTexture = loader.load(
   "./textures/water/normal.jpg"
 );
-const waterFloorRoughnessTexture = loader.load(
+const waterRoughnessTexture = loader.load(
   "./textures/water/roughness.jpg"
 );
 
 // Plaster
-const plasterFloorAmbientOcclusionTexture = loader.load(
+const plasterAmbientOcclusionTexture = loader.load(
   "./textures/plaster/ambientOcclusion.jpg"
 );
-const plasterFloorColorTexture = loader.load(
+const plasterColorTexture = loader.load(
   "./textures/plaster/basecolor.jpg"
 );
 
-const plasterFloorNormalTexture = loader.load(
+const plasterNormalTexture = loader.load(
   "./textures/plaster/normal.jpg"
 );
-const plasterFloorRoughnessTexture = loader.load(
+const plasterRoughnessTexture = loader.load(
   "./textures/plaster/roughness.jpg"
 );
 
+// Abstract organic
+const abstractOrganicAmbientOcclusionTexture = loader.load(
+  "./textures/abstract-organic/ambientOcclusion.jpg"
+);
+const abstractOrganicColorTexture = loader.load(
+  "./textures/abstract-organic/basecolor.jpg"
+);
+
+const abstractOrganicNormalTexture = loader.load(
+  "./textures/abstract-organic/normal.jpg"
+);
+const abstractOrganicRoughnessTexture = loader.load(
+  "./textures/abstract-organic/roughness.jpg"
+);
+
+// Stylized blocks
+const stylizedBlocksAmbientOcclusionTexture = loader.load(
+  "./textures/stylized-blocks/ambientOcclusion.jpg"
+);
+const stylizedBlocksColorTexture = loader.load(
+  "./textures/stylized-blocks/basecolor.jpg"
+);
+
+const stylizedBlocksNormalTexture = loader.load(
+  "./textures/stylized-blocks/normal.jpg"
+);
+const stylizedBlocksRoughnessTexture = loader.load(
+  "./textures/stylized-blocks/roughness.jpg"
+);
 
 const materials = {
   floor: {
     floor01: new THREE.MeshStandardMaterial({
+      color: "#1a1d2e",
       map: stoneFloorColorTexture,
       aoMap: stoneFloorAmbientOcclusionTexture,
       normalMap: stoneFloorNormalTexture,
       roughnessMap: stoneFloorRoughnessTexture,
     }),
     floor02: new THREE.MeshStandardMaterial({ 
-      map: waterFloorColorTexture,
-      aoMap: waterFloorAmbientOcclusionTexture,
-      normalMap: waterFloorNormalTexture,
-      roughnessMap: waterFloorRoughnessTexture,
+      color: "#1a1d2e",
+      map: abstractOrganicColorTexture,
+      aoMap: abstractOrganicAmbientOcclusionTexture,
+      normalMap: abstractOrganicNormalTexture,
+      roughnessMap:abstractOrganicRoughnessTexture,
      }),
   },
   obstacle: {
-    obstacle01: new THREE.MeshStandardMaterial({ color: "orangered" }),
+    obstacle01: new THREE.MeshStandardMaterial({ color: "crimson" }),
   },
   wall: {
     wall01: new THREE.MeshStandardMaterial({ 
-      map: plasterFloorColorTexture,
-      aoMap: plasterFloorAmbientOcclusionTexture,
-      normalMap: plasterFloorNormalTexture,
-      roughnessMap:plasterFloorRoughnessTexture,
+      color: "#1a1d2e",
+      map: plasterColorTexture,
+      aoMap: plasterAmbientOcclusionTexture,
+      normalMap: plasterNormalTexture,
+      roughnessMap:plasterRoughnessTexture,
      }),
   },
+  player: {
+    player01: new THREE.MeshStandardMaterial({ 
+      flatShading: true,
+      color: "#000000",
+      map: stylizedBlocksColorTexture,
+      aoMap: stylizedBlocksAmbientOcclusionTexture,
+      normalMap: stylizedBlocksNormalTexture,
+      roughnessMap:stylizedBlocksRoughnessTexture,
+     }),
+  }
 };
 
 export { materials };
