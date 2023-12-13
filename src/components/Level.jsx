@@ -2,6 +2,11 @@ import * as THREE from "three";
 import { RigidBody } from "@react-three/rapier";
 import { useState, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
+import BlockStart from "./Blocks/BlockStart.jsx";
+import BlockEnd from "./Blocks/BlockEnd.jsx";
+import BlockSpinner from "./Blocks/BlockSpinner.jsx";
+import BlockLimbo from "./Blocks/BlockLimbo.jsx";
+import BlockAxe from "./Blocks/BlockAxe.jsx";
 
 const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
 
@@ -12,67 +17,37 @@ const floor02Material = new THREE.MeshStandardMaterial({
 const obstacleMaterial = new THREE.MeshStandardMaterial({ color: "orangered" });
 const wallMaterial = new THREE.MeshStandardMaterial({ color: "slategrey" });
 
-function BlockStart({ position = [0, 0, 0] }) {
-  return (
-    <group position={position}>
-      <mesh
-        geometry={boxGeometry}
-        material={floor01Material}
-        position={[0, -0.1, 0]}
-        scale={[4, 0.2, 4]}
-        receiveShadow
-      />
-    </group>
-  );
-}
-
-function BlockSpinner({ position = [0, 0, 0] }) {
-  const obstacle = useRef();
-  const [speed] = useState(
-    () => (Math.random() + 0.2) * (Math.random() < 0.5 ? -1 : 1)
-  );
-
-  useFrame((state) => {
-    const time = state.clock.getElapsedTime();
-
-    const rotation = new THREE.Quaternion();
-    rotation.setFromEuler(new THREE.Euler(0, time * speed, 0));
-    obstacle.current.setNextKinematicRotation(rotation);
-  });
-
-  return (
-    <group position={position}>
-      <mesh
-        geometry={boxGeometry}
-        material={floor02Material}
-        position={[0, -0.1, 0]}
-        scale={[4, 0.2, 4]}
-        receiveShadow
-      />
-      <RigidBody
-        ref={obstacle}
-        type="kinematicPosition"
-        position={[0, 0.3, 0]}
-        restitution={0.2}
-        friction={0}
-      >
-        <mesh
-          geometry={boxGeometry}
-          material={obstacleMaterial}
-          scale={[3.5, 0.3, 0.3]}
-          castShadow
-          receiveShadow
-        />
-      </RigidBody>
-    </group>
-  );
-}
-
 export default function Level() {
   return (
     <>
-      <BlockStart position={[0, 0, 4]} />
-      <BlockSpinner position={[0, 0, 0]} />
+      <BlockStart
+        geometry={boxGeometry}
+        material={floor01Material}
+        position={[0, 0, 16]}
+      />
+      <BlockSpinner
+        position={[0, 0, 12]}
+        geometry={boxGeometry}
+        material={floor02Material}
+        obstacleMaterial={obstacleMaterial}
+      />
+      <BlockLimbo
+        position={[0, 0, 8]}
+        geometry={boxGeometry}
+        material={floor02Material}
+        obstacleMaterial={obstacleMaterial}
+      />
+      <BlockAxe
+        position={[0, 0, 4]}
+        geometry={boxGeometry}
+        material={floor02Material}
+        obstacleMaterial={obstacleMaterial}
+      />
+      <BlockEnd
+        position={[0, 0, 0]}
+        geometry={boxGeometry}
+        material={floor01Material}
+      />
     </>
   );
 }
