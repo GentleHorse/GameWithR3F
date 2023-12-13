@@ -12,7 +12,7 @@ export default function Experience() {
     <>
       <Scene />
 
-      <Physics debug>
+      <Physics debug={false}>
         <Lights />
         <Level />
         <Player position={[0, 1, 0]} />
