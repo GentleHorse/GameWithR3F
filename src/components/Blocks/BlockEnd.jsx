@@ -27,8 +27,8 @@ export default function BlockEnd({ position = [0, 0, 0], geometry, material }) {
           scale={[4, 0.2, 4]}
           receiveShadow
         />
-        {/* <SnowFlower material={glassMaterial} position={[0, 0, 0]} scale={5} /> */}
-        <Hamburger position={[0, 0.25, 0]} scale={0.2}/>
+        <SnowFlower material={glassMaterial} position={[0, 0, 0]} scale={5} />
+        {/* <Hamburger position={[0, 0.25, 0]} scale={0.2}/> */}
       </group>
     </>
   );

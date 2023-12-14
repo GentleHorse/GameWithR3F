@@ -95,7 +95,13 @@ const materials = {
      }),
   },
   obstacle: {
-    obstacle01: new THREE.MeshStandardMaterial({ color: "crimson" }),
+    obstacle01: new THREE.MeshStandardMaterial({ 
+      color: "crimson",
+      // map: waterColorTexture,
+      aoMap: waterAmbientOcclusionTexture,
+      normalMap: waterNormalTexture,
+      roughnessMap: waterRoughnessTexture
+     }),
   },
   wall: {
     wall01: new THREE.MeshStandardMaterial({ 
