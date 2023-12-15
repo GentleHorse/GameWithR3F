@@ -12,6 +12,7 @@ import Bounds from "./walls/Bounds.jsx";
 export default function Level({
   count = 5,
   types = [BlockSpinner, BlockAxe, BlockLimbo],
+  seed = 0
 }) {
   const blocks = useMemo(() => {
     const blocks = [];
@@ -22,7 +23,7 @@ export default function Level({
     }
 
     return blocks;
-  }, [count, types]);
+  }, [count, types, seed]);
 
   return (
     <>

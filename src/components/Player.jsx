@@ -5,16 +5,25 @@ import { useFrame } from "@react-three/fiber";
 import { useKeyboardControls } from "@react-three/drei";
 import { useState, useEffect, useRef } from "react";
 import * as THREE from "three";
+import useGame from "../stores/useGame.jsx";
 
 export default function Player(props) {
   const body = useRef();
   const [subscribeKeys, getKeys] = useKeyboardControls();
   const { rapier, world } = useRapier();
-  
-  const [smoothedCameraPosition] = useState(() => new THREE.Vector3(10, 10, 10));
+
+  const [smoothedCameraPosition] = useState(
+    () => new THREE.Vector3(10, 10, 10)
+  );
   const [smoothedCameraTarget] = useState(() => new THREE.Vector3());
 
-  // Make a ball jump ===================================
+  const start = useGame((state) => state.start);
+  const restart = useGame((state) => state.restart);
+  const end = useGame((state) => state.end);
+  const blocksCount = useGame((state) => state.blocksCount);
+
+  // Util functions =====================================
+  // Jump ---------------------------------
   const jump = () => {
     // origin is its contact point to the floor
     const origin = body.current.translation();
@@ -34,7 +43,24 @@ export default function Player(props) {
     }
   };
 
+  // Reset --------------------------------
+  const reset = () => {
+    body.current.setTranslation({ x: 0, y: 1, z: 0 });
+    body.current.setLinvel({ x: 0, y: 0, z: 0 });
+    body.current.setAngvel({ x: 0, y: 0, z: 0 });
+  };
+
+  // Make a ball jump ===================================
   useEffect(() => {
+    const unsubscribeReset = useGame.subscribe(
+      (state) => state.phase,
+      (value) => {
+        if (value === "ready") {
+          reset();
+        }
+      }
+    );
+
     const unsubscribeJump = subscribeKeys(
       (state) => state.jump,
       (value) => {
@@ -44,8 +70,18 @@ export default function Player(props) {
       }
     );
 
+    /**
+     * Change phase from 'ready' to 'playing'
+     */
+    const unsubscribeAny = subscribeKeys(() => {
+      start();
+    });
+
+    // Clean up functions when the component gets destroyed
     return () => {
       unsubscribeJump();
+      unsubscribeAny();
+      unsubscribeReset();
     };
   }, []);
 
@@ -97,10 +133,24 @@ export default function Player(props) {
     cameraTarget.y += 0.25;
 
     smoothedCameraPosition.lerp(cameraPosition, 5 * delta);
-    smoothedCameraTarget.lerp(cameraTarget, 5 * delta)
+    smoothedCameraTarget.lerp(cameraTarget, 5 * delta);
 
     state.camera.position.copy(smoothedCameraPosition);
     state.camera.lookAt(smoothedCameraTarget);
+
+    /**
+     * Change phase from 'playing' to 'ended'
+     */
+    if (bodyPosition.z < -(blocksCount * 4 + 2)) {
+      end();
+    }
+
+    /**
+     * Change phase from 'playing' to 'ready'
+     */
+    if (bodyPosition.y < -4) {
+      restart();
+    }
   });
 
   // Render ================================================

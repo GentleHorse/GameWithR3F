@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MeshTransmissionMaterial } from "@react-three/drei";
+import { Float, Text, MeshTransmissionMaterial } from "@react-three/drei";
 import SnowFlower from "../models/SnowFlower.jsx";
 import Hamburger from "../models/Hamburger.jsx";
 
@@ -20,6 +20,14 @@ export default function BlockEnd({ position = [0, 0, 0], geometry, material }) {
       />
 
       <group position={position}>
+      <Text
+          font="./fonts/SeriEa-BWxzn.woff"
+          scale={1}
+          position={[0, 2.25, 2]}
+        >
+          Finish
+          <meshBasicMaterial toneMapped={false} />
+        </Text>
         <mesh
           geometry={geometry}
           material={material}
