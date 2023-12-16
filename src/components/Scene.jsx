@@ -3,6 +3,7 @@ import { OrbitControls } from "@react-three/drei";
 import { Perf } from "r3f-perf";
 import { button, useControls } from "leva";
 import Background from "./misc/Background.jsx";
+import Lights from "./misc/Lights.jsx"
 
 export default function Scene() {
   const [isOrbitControl, setIsOrbitControl] = useState(false);
@@ -23,6 +24,8 @@ export default function Scene() {
       <Perf position="top-left" />
 
       <Background />
+
+      <Lights />
 
       {isOrbitControl && <OrbitControls makeDefault />}
     </>
