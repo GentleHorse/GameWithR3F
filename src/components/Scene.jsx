@@ -6,28 +6,28 @@ import Background from "./misc/Background.jsx";
 import Lights from "./misc/Lights.jsx"
 
 export default function Scene() {
-  const [isOrbitControl, setIsOrbitControl] = useState(false);
+  // const [isOrbitControl, setIsOrbitControl] = useState(false);
 
-  const { on, off } = useControls("orbitControls", {
-    on: button(() => {
-      setIsOrbitControl(true);
-      console.log("Turn on OrbitControls")
-    }),
-    off: button(() => {
-      setIsOrbitControl(false);
-      console.log("Turn off OrbitControls")
-    }),
-  });
+  // const { on, off } = useControls("orbitControls", {
+  //   on: button(() => {
+  //     setIsOrbitControl(true);
+  //     console.log("Turn on OrbitControls")
+  //   }),
+  //   off: button(() => {
+  //     setIsOrbitControl(false);
+  //     console.log("Turn off OrbitControls")
+  //   }),
+  // });
 
   return (
     <>
-      <Perf position="top-left" />
+      {/* <Perf position="top-left" /> */}
 
       <Background />
 
       <Lights />
 
-      {isOrbitControl && <OrbitControls makeDefault />}
+      {/* {isOrbitControl && <OrbitControls makeDefault />} */}
     </>
   );
 }
