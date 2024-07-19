@@ -1,8 +1,11 @@
 import { geometries } from "./geometries.js";
 import { materials } from "./materials.js";
 import { useRapier, RigidBody } from "@react-three/rapier";
-import { useFrame } from "@react-three/fiber";
-import { useKeyboardControls } from "@react-three/drei";
+import { useFrame, useLoader } from "@react-three/fiber";
+import {
+  useKeyboardControls,
+  MeshTransmissionMaterial,
+} from "@react-three/drei";
 import { useState, useEffect, useRef } from "react";
 import * as THREE from "three";
 import useGame from "../stores/useGame.jsx";
@@ -21,6 +24,13 @@ export default function Player(props) {
   const restart = useGame((state) => state.restart);
   const end = useGame((state) => state.end);
   const blocksCount = useGame((state) => state.blocksCount);
+
+  // Normal texture for the player's material ===========
+
+  const stylizedBlocksNormalTexture = useLoader(
+    THREE.TextureLoader,
+    "./textures/stylized-blocks/normal.jpg"
+  );
 
   // Util functions =====================================
   // Jump ---------------------------------
@@ -168,10 +178,26 @@ export default function Player(props) {
       angularDamping={0.5}
     >
       <mesh
-        material={materials.player.player01}
+        // material={materials.player.player01}
         geometry={geometries.icoSphere}
         castShadow
-      />
+      >
+        <MeshTransmissionMaterial
+          backside
+          samples={6} // refraction samples, default: 6
+          transmission={1}
+          thickness={0.9}
+          chromaticAberration={0.05}
+          anisotropy={0.9} // the structural property of non-uniformity in different directions, default: 0.1
+          distortion={2.0} // default: 0
+          distortionScale={0.6}
+          temporalDistortion={0.1} // speed of movement, default: 0.0
+          iridescence={1} // certain surfaces that appear gradually to change colour
+          iridescenceIOR={1}
+          iridescenceThicknessRange={[100, 400]}
+          normalMap={stylizedBlocksNormalTexture}
+        />
+      </mesh>
     </RigidBody>
   );
 }

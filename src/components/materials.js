@@ -86,6 +86,13 @@ const materials = {
       normalMap: stoneFloorNormalTexture,
       roughnessMap: stoneFloorRoughnessTexture,
     }),
+    floor01Glass: new THREE.MeshPhysicalMaterial({
+      color: "#FFC408",
+      roughness: 0.15,
+      transmission: 1,
+      thickness: 0.5,
+      normalMap: stoneFloorNormalTexture,
+    }),
     floor02: new THREE.MeshStandardMaterial({ 
       color: "#1a1d2e",
       map: abstractOrganicColorTexture,
@@ -93,6 +100,13 @@ const materials = {
       normalMap: abstractOrganicNormalTexture,
       roughnessMap:abstractOrganicRoughnessTexture,
      }),
+     floor02Glass: new THREE.MeshPhysicalMaterial({
+      color: "#456D4C",
+      roughness: 0.15,
+      transmission: 1,
+      thickness: 0.5,
+      normalMap: abstractOrganicNormalTexture,
+    }),
   },
   obstacle: {
     obstacle01: new THREE.MeshStandardMaterial({ 
@@ -102,6 +116,13 @@ const materials = {
       normalMap: waterNormalTexture,
       roughnessMap: waterRoughnessTexture
      }),
+     obstacle01Glass: new THREE.MeshPhysicalMaterial({
+      color: "crimson",
+      roughness: 0.15,
+      transmission: 1,
+      thickness: 0.5,
+      normalMap: waterNormalTexture,
+    }),
   },
   wall: {
     wall01: new THREE.MeshStandardMaterial({ 
@@ -111,6 +132,13 @@ const materials = {
       normalMap: plasterNormalTexture,
       roughnessMap:plasterRoughnessTexture,
      }),
+     wall01Glass: new THREE.MeshPhysicalMaterial({
+      color: "#0B346E",
+      roughness: 0.15,
+      transmission: 1,
+      thickness: 0.5,
+      normalMap: plasterNormalTexture,
+    }),
   },
   player: {
     player01: new THREE.MeshStandardMaterial({ 

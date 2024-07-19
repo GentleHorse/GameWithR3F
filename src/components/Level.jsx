@@ -29,7 +29,7 @@ export default function Level({
     <>
       <BlockStart
         geometry={geometries.cube}
-        material={materials.floor.floor01}
+        material={materials.floor.floor01Glass}
         position={[0, 0, 0]}
       />
 
@@ -38,15 +38,15 @@ export default function Level({
           key={index}
           position={[0, 0, -(index + 1) * 4]}
           geometry={geometries.cube}
-          material={materials.floor.floor02}
-          obstacleMaterial={materials.obstacle.obstacle01}
+          material={materials.floor.floor02Glass}
+          obstacleMaterial={materials.obstacle.obstacle01Glass}
         />
       ))}
 
       <BlockEnd
         position={[0, 0, -(count + 1) * 4]}
         geometry={geometries.cube}
-        material={materials.floor.floor01}
+        material={materials.floor.floor01Glass}
       />
 
       <Bounds
