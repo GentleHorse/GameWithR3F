@@ -1,9 +1,6 @@
 import Level from "./components/Level.jsx";
 import Scene from "./components/Scene.jsx";
 import { Physics } from "@react-three/rapier";
-import BlockSpinner from "./components/blocks/BlockSpinner.jsx";
-import BlockLimbo from "./components/blocks/BlockLimbo.jsx";
-import BlockAxe from "./components/blocks/BlockAxe.jsx";
 import Player from "./components/Player.jsx";
 import useGame from "./stores/useGame.jsx";
 

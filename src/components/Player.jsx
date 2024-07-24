@@ -47,7 +47,7 @@ export default function Player(props) {
     // true -> consider everything as a solid object
     const hit = world.castRay(ray, 10, true);
 
-    if (hit.toi < 0.15) {
+    if (hit.timeOfImpact < 0.15) {
       // add an impulse from the bottom
       body.current.applyImpulse({ x: 0, y: 0.5, z: 0 });
     }

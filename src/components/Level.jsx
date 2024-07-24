@@ -38,8 +38,8 @@ export default function Level({
           key={index}
           position={[0, 0, -(index + 1) * 4]}
           geometry={geometries.cube}
-          material={materials.floor.floor02Glass}
-          obstacleMaterial={materials.obstacle.obstacle01Glass}
+          material={materials.floor.floor02}
+          obstacleMaterial={materials.obstacle.obstacle01}
         />
       ))}
 

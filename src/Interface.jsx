@@ -1,3 +1,9 @@
+import {
+  BrowserView,
+  MobileView,
+  isBrowser,
+  isMobile,
+} from "react-device-detect";
 import { useKeyboardControls } from "@react-three/drei";
 import { useEffect, useRef } from "react";
 import { addEffect } from "@react-three/fiber";
@@ -30,7 +36,7 @@ export default function Interface() {
       elapsedTime = elapsedTime.toFixed(2);
 
       // Update .time div
-      if (time.current){
+      if (time.current) {
         time.current.textContent = elapsedTime;
       }
     });
@@ -57,15 +63,15 @@ export default function Interface() {
       {/* Controls */}
       <div className="controls">
         <div className="raw">
-          <div className={`key ${forward && "active"}`}></div>
+          <button className={`key ${forward && "active"}`}></button>
         </div>
         <div className="raw">
-          <div className={`key ${leftward && "active"}`}></div>
-          <div className={`key  ${backward && "active"}`}></div>
-          <div className={`key  ${rightward && "active"}`}></div>
+          <button className={`key ${leftward && "active"}`}></button>
+          <button className={`key  ${backward && "active"}`}></button>
+          <button className={`key  ${rightward && "active"}`}></button>
         </div>
         <div className="raw">
-          <div className={`key large  ${jump && "active"}`}></div>
+          <button className={`key large  ${jump && "active"}`}></button>
         </div>
       </div>
     </div>
