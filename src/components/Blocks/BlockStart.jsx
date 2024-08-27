@@ -7,7 +7,7 @@ export default function BlockStart({
 }) {
   return (
     <group position={position}>
-      <Float floatIntensity={0.25} rotationIntensity={0.25}>
+      {/* <Float floatIntensity={0.25} rotationIntensity={0.25}>
         <Text
           font="./fonts/SeriEa-BWxzn.woff"
           scale={0.5}
@@ -20,7 +20,7 @@ export default function BlockStart({
           Marble Race
           <meshBasicMaterial toneMapped={false} />
         </Text>
-      </Float>
+      </Float> */}
       <mesh
         geometry={geometry}
         material={material}

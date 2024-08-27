@@ -61,7 +61,7 @@ export default function Interface() {
       )}
 
       {/* Controls */}
-      <div className="controls">
+      {/* <div className="controls">
         <div className="raw">
           <button className={`key ${forward && "active"}`}></button>
         </div>
@@ -73,7 +73,7 @@ export default function Interface() {
         <div className="raw">
           <button className={`key large  ${jump && "active"}`}></button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
