@@ -186,7 +186,11 @@ export default function Player(props) {
      * Mobile controls
      */
     // forward
-    if (isPlaying && mobileOrientation.beta < 45 && mobileOrientation.beta > 0) {
+    if (
+      isPlaying &&
+      mobileOrientation.beta < 45 &&
+      mobileOrientation.beta > 0
+    ) {
       if (mobileOrientation.beta < 30) {
         impulse.z -= impulseStrength * 0.4;
         torque.x -= torqueStrength * 0.4;
@@ -197,7 +201,11 @@ export default function Player(props) {
     }
 
     // backward
-    if (isPlaying && mobileOrientation.beta > 45 && mobileOrientation.beta < 90) {
+    if (
+      isPlaying &&
+      mobileOrientation.beta > 45 &&
+      mobileOrientation.beta < 90
+    ) {
       if (mobileOrientation.beta > 60) {
         impulse.z += impulseStrength * 0.4;
         torque.x += torqueStrength * 0.4;
@@ -205,6 +213,36 @@ export default function Player(props) {
 
       impulse.z += impulseStrength * 0.2;
       torque.x += torqueStrength * 0.2;
+    }
+
+    // rightward
+    if (
+      isPlaying &&
+      mobileOrientation.gamma < 45 &&
+      mobileOrientation.gamma > 0 
+    ) {
+      if (mobileOrientation.gamma > 25) {
+        impulse.x += impulseStrength * 0.4;
+        torque.z -= torqueStrength * 0.4;
+      }
+
+      impulse.x += impulseStrength * 0.2;
+      torque.z -= torqueStrength * 0.2;
+    }
+
+    // leftward
+    if (
+      isPlaying &&
+      mobileOrientation.gamma > -45 &&
+      mobileOrientation.gamma < 0 
+    ) {
+      if (mobileOrientation.gamma < -25) {
+        impulse.x -= impulseStrength * 0.4;
+        torque.z += torqueStrength * 0.4;
+      }
+
+      impulse.x -= impulseStrength * 0.2;
+      torque.z += torqueStrength * 0.2;
     }
 
     body.current.applyImpulse(impulse);
