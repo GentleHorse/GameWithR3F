@@ -79,6 +79,12 @@ export default function Player(props) {
     }
   });
 
+  useEffect(() => {
+    if(isPlaying){
+      start();
+    }
+  }, [isPlaying])
+
   // Normal texture for the player's material ===========
 
   const stylizedBlocksNormalTexture = useLoader(
