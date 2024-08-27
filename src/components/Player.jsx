@@ -12,13 +12,16 @@ import { useState, useEffect, useRef } from "react";
 import * as THREE from "three";
 import useGame from "../stores/useGame.jsx";
 
+const CAMERA_DISTANCE = 3.25;
+const CAMERA_HEIGHT = 1.25;
+
 export default function Player(props) {
   const body = useRef();
   const [subscribeKeys, getKeys] = useKeyboardControls();
   const { rapier, world } = useRapier();
 
   const [smoothedCameraPosition] = useState(
-    () => new THREE.Vector3(10, 10, 10)
+    () => new THREE.Vector3(10, 30, 10)
   );
   const [smoothedCameraTarget] = useState(() => new THREE.Vector3());
 
@@ -261,8 +264,8 @@ export default function Player(props) {
 
     const cameraPosition = new THREE.Vector3();
     cameraPosition.copy(bodyPosition);
-    cameraPosition.z += 2.25;
-    cameraPosition.y += 0.65;
+    cameraPosition.z += CAMERA_DISTANCE;
+    cameraPosition.y += CAMERA_HEIGHT;
 
     const cameraTarget = new THREE.Vector3();
     cameraTarget.copy(bodyPosition);
