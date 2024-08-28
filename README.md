@@ -1,6 +1,7 @@
 # Marble race game with React Three Rapier
 
-![an example app image](./public/images/an-app-example-image.png)
+![an example app image 02](./public/images/an-app-example-image-02.png)
+![an example app image 03](./public/images/an-app-example-image-03.png)
 
 ## Dev Memo
 
