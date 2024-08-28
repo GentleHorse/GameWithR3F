@@ -148,6 +148,7 @@ export default function Player(props) {
      */
     const unsubscribeAny = subscribeKeys(() => {
       start();
+      setIsPlaying(true);
     });
 
     // Clean up functions when the component gets destroyed
@@ -282,6 +283,7 @@ export default function Player(props) {
      */
     if (bodyPosition.z < -(blocksCount * 4 + 2)) {
       end();
+      setIsPlaying(false);
     }
 
     /**
@@ -289,6 +291,7 @@ export default function Player(props) {
      */
     if (bodyPosition.y < -4) {
       restart();
+      setIsPlaying(false);
     }
   });
 
