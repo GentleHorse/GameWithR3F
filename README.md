@@ -5,7 +5,7 @@
 
 ## Dev Memo
 
-Dur to update of react-three-rapier version to `1.4.0`, changed the expression of rey casting `toi` to `timeOfImpact`.
+Due to update of react-three-rapier version to `1.4.0`, changed the expression of ray casting `toi` to `timeOfImpact`.
 
 **Player.jsx**
 
